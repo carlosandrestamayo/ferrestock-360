@@ -40,7 +40,7 @@ namespace FerreStock.Formularios
             }
         }
 
-        /// <summary>Muestra abajo cuántos productos hay y cuántos están bajo el stock mínimo.</summary>
+        /// <summary>Muestra abajo cuántos productos hay, cuántos están bajo el mínimo y cuántos pedidos esperan.</summary>
         private void ActualizarBarraEstado()
         {
             if (inventario == null)
@@ -59,6 +59,11 @@ namespace FerreStock.Formularios
             else
             {
                 lblEstadoBajoMinimo.ForeColor = SystemColors.ControlText;
+            }
+
+            if (pedidos != null)
+            {
+                lblEstadoPedidos.Text = "Pedidos pendientes: " + pedidos.ObtenerColaEnOrden().Count;
             }
         }
 
@@ -143,6 +148,7 @@ namespace FerreStock.Formularios
             {
                 frm.ShowDialog(this);
             }
+            ActualizarBarraEstado();
         }
 
         private void mnuCalculadora_Click(object sender, EventArgs e)
@@ -181,6 +187,16 @@ namespace FerreStock.Formularios
         private void mnuSalir_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void mnuAcercaDe_Click(object sender, EventArgs e)
+        {
+            // TODO estudiante: escribir aquí los nombres de los integrantes del equipo.
+            MessageBox.Show("FerreStock 360\n" +
+                "Proyecto integrador SIGLO 360 - Equipo 2: Ferretería\n\n" +
+                "Inventario con ubicación espacial, priorización de pedidos y optimización de la bodega.\n\n" +
+                "Datos guardados en:\n" + Datos.RutasDatos.Carpeta,
+                "Acerca de", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         // TODO estudiante: cambiar los textos, colores o el ícono de esta ventana

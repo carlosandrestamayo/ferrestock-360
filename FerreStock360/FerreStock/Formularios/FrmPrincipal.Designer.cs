@@ -50,13 +50,19 @@ namespace FerreStock.Formularios
             btnProductos = new Button();
             btnMovimientos = new Button();
             btnPedidos = new Button();
+            btnMapa = new Button();
+            btnCalculadora = new Button();
+            btnIndicadores = new Button();
+            lblEstadoPedidos = new ToolStripStatusLabel();
+            mnuAyuda = new ToolStripMenuItem();
+            mnuAcercaDe = new ToolStripMenuItem();
             menuPrincipal.SuspendLayout();
             barraEstado.SuspendLayout();
             SuspendLayout();
             //
             // menuPrincipal
             //
-            menuPrincipal.Items.AddRange(new ToolStripItem[] { mnuInventario, mnuOperaciones, mnuBodega, mnuReportes });
+            menuPrincipal.Items.AddRange(new ToolStripItem[] { mnuInventario, mnuOperaciones, mnuBodega, mnuReportes, mnuAyuda });
             menuPrincipal.Location = new Point(0, 0);
             menuPrincipal.Name = "menuPrincipal";
             menuPrincipal.Size = new Size(800, 24);
@@ -156,10 +162,24 @@ namespace FerreStock.Formularios
             mnuComparador.Text = "&Comparador de algoritmos";
             mnuComparador.Click += mnuComparador_Click;
             //
-            // barraEstado
+            // mnuAyuda
             //
-            barraEstado.Items.AddRange(new ToolStripItem[] { lblEstadoProductos, lblEstadoBajoMinimo });
-            barraEstado.Location = new Point(0, 428);
+            mnuAyuda.DropDownItems.AddRange(new ToolStripItem[] { mnuAcercaDe });
+            mnuAyuda.Name = "mnuAyuda";
+            mnuAyuda.Size = new Size(53, 20);
+            mnuAyuda.Text = "A&yuda";
+            //
+            // mnuAcercaDe
+            //
+            mnuAcercaDe.Name = "mnuAcercaDe";
+            mnuAcercaDe.Size = new Size(180, 22);
+            mnuAcercaDe.Text = "&Acerca de FerreStock 360";
+            mnuAcercaDe.Click += mnuAcercaDe_Click;
+            //
+            // barraEstado
+            // 
+            barraEstado.Items.AddRange(new ToolStripItem[] { lblEstadoProductos, lblEstadoBajoMinimo, lblEstadoPedidos });
+            barraEstado.Location = new Point(0, 338);
             barraEstado.Name = "barraEstado";
             barraEstado.Size = new Size(800, 22);
             barraEstado.TabIndex = 1;
@@ -177,12 +197,19 @@ namespace FerreStock.Formularios
             lblEstadoBajoMinimo.Size = new Size(125, 17);
             lblEstadoBajoMinimo.Text = "Bajo stock mínimo: 0";
             //
-            // lblTitulo
+            // lblEstadoPedidos
             //
+            lblEstadoPedidos.Margin = new Padding(20, 3, 0, 2);
+            lblEstadoPedidos.Name = "lblEstadoPedidos";
+            lblEstadoPedidos.Size = new Size(125, 17);
+            lblEstadoPedidos.Text = "Pedidos pendientes: 0";
+            //
+            // lblTitulo
+            // 
             lblTitulo.Anchor = AnchorStyles.Top;
             lblTitulo.Font = new Font("Segoe UI", 26F, FontStyle.Bold);
             lblTitulo.ForeColor = Color.FromArgb(192, 64, 0);
-            lblTitulo.Location = new Point(150, 90);
+            lblTitulo.Location = new Point(150, 60);
             lblTitulo.Name = "lblTitulo";
             lblTitulo.Size = new Size(500, 50);
             lblTitulo.TabIndex = 2;
@@ -194,7 +221,7 @@ namespace FerreStock.Formularios
             lblSubtitulo.Anchor = AnchorStyles.Top;
             lblSubtitulo.Font = new Font("Segoe UI", 11F);
             lblSubtitulo.ForeColor = Color.DimGray;
-            lblSubtitulo.Location = new Point(150, 145);
+            lblSubtitulo.Location = new Point(150, 115);
             lblSubtitulo.Name = "lblSubtitulo";
             lblSubtitulo.Size = new Size(500, 25);
             lblSubtitulo.TabIndex = 3;
@@ -205,7 +232,7 @@ namespace FerreStock.Formularios
             //
             btnProductos.Anchor = AnchorStyles.Top;
             btnProductos.Font = new Font("Segoe UI", 12F);
-            btnProductos.Location = new Point(110, 210);
+            btnProductos.Location = new Point(110, 175);
             btnProductos.Name = "btnProductos";
             btnProductos.Size = new Size(180, 50);
             btnProductos.TabIndex = 4;
@@ -217,7 +244,7 @@ namespace FerreStock.Formularios
             // 
             btnMovimientos.Anchor = AnchorStyles.Top;
             btnMovimientos.Font = new Font("Segoe UI", 12F);
-            btnMovimientos.Location = new Point(310, 210);
+            btnMovimientos.Location = new Point(310, 175);
             btnMovimientos.Name = "btnMovimientos";
             btnMovimientos.Size = new Size(180, 50);
             btnMovimientos.TabIndex = 5;
@@ -229,7 +256,7 @@ namespace FerreStock.Formularios
             // 
             btnPedidos.Anchor = AnchorStyles.Top;
             btnPedidos.Font = new Font("Segoe UI", 12F);
-            btnPedidos.Location = new Point(510, 210);
+            btnPedidos.Location = new Point(510, 175);
             btnPedidos.Name = "btnPedidos";
             btnPedidos.Size = new Size(180, 50);
             btnPedidos.TabIndex = 6;
@@ -237,11 +264,50 @@ namespace FerreStock.Formularios
             btnPedidos.UseVisualStyleBackColor = true;
             btnPedidos.Click += btnPedidos_Click;
             //
+            // btnMapa
+            //
+            btnMapa.Anchor = AnchorStyles.Top;
+            btnMapa.Font = new Font("Segoe UI", 12F);
+            btnMapa.Location = new Point(110, 240);
+            btnMapa.Name = "btnMapa";
+            btnMapa.Size = new Size(180, 50);
+            btnMapa.TabIndex = 7;
+            btnMapa.Text = "Mapa de bodega";
+            btnMapa.UseVisualStyleBackColor = true;
+            btnMapa.Click += mnuMapaBodega_Click;
+            //
+            // btnCalculadora
+            //
+            btnCalculadora.Anchor = AnchorStyles.Top;
+            btnCalculadora.Font = new Font("Segoe UI", 12F);
+            btnCalculadora.Location = new Point(310, 240);
+            btnCalculadora.Name = "btnCalculadora";
+            btnCalculadora.Size = new Size(180, 50);
+            btnCalculadora.TabIndex = 8;
+            btnCalculadora.Text = "Calculadora";
+            btnCalculadora.UseVisualStyleBackColor = true;
+            btnCalculadora.Click += mnuCalculadora_Click;
+            //
+            // btnIndicadores
+            //
+            btnIndicadores.Anchor = AnchorStyles.Top;
+            btnIndicadores.Font = new Font("Segoe UI", 12F);
+            btnIndicadores.Location = new Point(510, 240);
+            btnIndicadores.Name = "btnIndicadores";
+            btnIndicadores.Size = new Size(180, 50);
+            btnIndicadores.TabIndex = 9;
+            btnIndicadores.Text = "Indicadores";
+            btnIndicadores.UseVisualStyleBackColor = true;
+            btnIndicadores.Click += mnuIndicadores_Click;
+            //
             // FrmPrincipal
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 360);
+            Controls.Add(btnIndicadores);
+            Controls.Add(btnCalculadora);
+            Controls.Add(btnMapa);
             Controls.Add(btnPedidos);
             Controls.Add(btnMovimientos);
             Controls.Add(btnProductos);
@@ -250,7 +316,7 @@ namespace FerreStock.Formularios
             Controls.Add(barraEstado);
             Controls.Add(menuPrincipal);
             MainMenuStrip = menuPrincipal;
-            MinimumSize = new Size(600, 400);
+            MinimumSize = new Size(816, 399);
             Name = "FrmPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FerreStock 360";
@@ -287,5 +353,11 @@ namespace FerreStock.Formularios
         private Button btnProductos;
         private Button btnMovimientos;
         private Button btnPedidos;
+        private Button btnMapa;
+        private Button btnCalculadora;
+        private Button btnIndicadores;
+        private ToolStripStatusLabel lblEstadoPedidos;
+        private ToolStripMenuItem mnuAyuda;
+        private ToolStripMenuItem mnuAcercaDe;
     }
 }
