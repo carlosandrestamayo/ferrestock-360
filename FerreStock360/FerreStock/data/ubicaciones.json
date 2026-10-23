@@ -1,0 +1,335 @@
+[
+  {
+    "Id": "A-01-1",
+    "Zona": "A",
+    "X": 4,
+    "Y": 4,
+    "Z": 0.2,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 1
+  },
+  {
+    "Id": "A-01-2",
+    "Zona": "A",
+    "X": 4,
+    "Y": 4,
+    "Z": 1,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 1
+  },
+  {
+    "Id": "A-01-3",
+    "Zona": "A",
+    "X": 4,
+    "Y": 4,
+    "Z": 1.8,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 1
+  },
+  {
+    "Id": "A-02-1",
+    "Zona": "A",
+    "X": 4,
+    "Y": 6,
+    "Z": 0.2,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 5
+  },
+  {
+    "Id": "A-02-2",
+    "Zona": "A",
+    "X": 4,
+    "Y": 6,
+    "Z": 1,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 5
+  },
+  {
+    "Id": "A-02-3",
+    "Zona": "A",
+    "X": 4,
+    "Y": 6,
+    "Z": 1.8,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 5
+  },
+  {
+    "Id": "B-01-1",
+    "Zona": "B",
+    "X": 10,
+    "Y": 4,
+    "Z": 0.2,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 2
+  },
+  {
+    "Id": "B-01-2",
+    "Zona": "B",
+    "X": 10,
+    "Y": 4,
+    "Z": 1,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 2
+  },
+  {
+    "Id": "B-01-3",
+    "Zona": "B",
+    "X": 10,
+    "Y": 4,
+    "Z": 1.8,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 2
+  },
+  {
+    "Id": "B-02-1",
+    "Zona": "B",
+    "X": 10,
+    "Y": 6,
+    "Z": 0.2,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 6
+  },
+  {
+    "Id": "B-02-2",
+    "Zona": "B",
+    "X": 10,
+    "Y": 6,
+    "Z": 1,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 6
+  },
+  {
+    "Id": "B-02-3",
+    "Zona": "B",
+    "X": 10,
+    "Y": 6,
+    "Z": 1.8,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 6
+  },
+  {
+    "Id": "C-01-1",
+    "Zona": "C",
+    "X": 16,
+    "Y": 4,
+    "Z": 0.2,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 3
+  },
+  {
+    "Id": "C-01-2",
+    "Zona": "C",
+    "X": 16,
+    "Y": 4,
+    "Z": 1,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 3
+  },
+  {
+    "Id": "C-01-3",
+    "Zona": "C",
+    "X": 16,
+    "Y": 4,
+    "Z": 1.8,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 3
+  },
+  {
+    "Id": "C-02-1",
+    "Zona": "C",
+    "X": 16,
+    "Y": 6,
+    "Z": 0.2,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 7
+  },
+  {
+    "Id": "C-02-2",
+    "Zona": "C",
+    "X": 16,
+    "Y": 6,
+    "Z": 1,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 7
+  },
+  {
+    "Id": "C-02-3",
+    "Zona": "C",
+    "X": 16,
+    "Y": 6,
+    "Z": 1.8,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 7
+  },
+  {
+    "Id": "D-01-1",
+    "Zona": "D",
+    "X": 22,
+    "Y": 4,
+    "Z": 0.2,
+    "CapacidadM3": 4,
+    "NodoGrafo": 4
+  },
+  {
+    "Id": "D-01-2",
+    "Zona": "D",
+    "X": 22,
+    "Y": 4,
+    "Z": 1,
+    "CapacidadM3": 4,
+    "NodoGrafo": 4
+  },
+  {
+    "Id": "D-01-3",
+    "Zona": "D",
+    "X": 22,
+    "Y": 4,
+    "Z": 1.8,
+    "CapacidadM3": 4,
+    "NodoGrafo": 4
+  },
+  {
+    "Id": "D-02-1",
+    "Zona": "D",
+    "X": 22,
+    "Y": 6,
+    "Z": 0.2,
+    "CapacidadM3": 4,
+    "NodoGrafo": 8
+  },
+  {
+    "Id": "D-02-2",
+    "Zona": "D",
+    "X": 22,
+    "Y": 6,
+    "Z": 1,
+    "CapacidadM3": 4,
+    "NodoGrafo": 8
+  },
+  {
+    "Id": "D-02-3",
+    "Zona": "D",
+    "X": 22,
+    "Y": 6,
+    "Z": 1.8,
+    "CapacidadM3": 4,
+    "NodoGrafo": 8
+  },
+  {
+    "Id": "E-01-1",
+    "Zona": "E",
+    "X": 4,
+    "Y": 12,
+    "Z": 0.2,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 9
+  },
+  {
+    "Id": "E-01-2",
+    "Zona": "E",
+    "X": 4,
+    "Y": 12,
+    "Z": 1,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 9
+  },
+  {
+    "Id": "E-01-3",
+    "Zona": "E",
+    "X": 4,
+    "Y": 12,
+    "Z": 1.8,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 9
+  },
+  {
+    "Id": "E-02-1",
+    "Zona": "E",
+    "X": 10,
+    "Y": 12,
+    "Z": 0.2,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 10
+  },
+  {
+    "Id": "E-02-2",
+    "Zona": "E",
+    "X": 10,
+    "Y": 12,
+    "Z": 1,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 10
+  },
+  {
+    "Id": "E-02-3",
+    "Zona": "E",
+    "X": 10,
+    "Y": 12,
+    "Z": 1.8,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 10
+  },
+  {
+    "Id": "F-01-1",
+    "Zona": "F",
+    "X": 16,
+    "Y": 12,
+    "Z": 0.2,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 11
+  },
+  {
+    "Id": "F-01-2",
+    "Zona": "F",
+    "X": 16,
+    "Y": 12,
+    "Z": 1,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 11
+  },
+  {
+    "Id": "F-01-3",
+    "Zona": "F",
+    "X": 16,
+    "Y": 12,
+    "Z": 1.8,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 11
+  },
+  {
+    "Id": "F-02-1",
+    "Zona": "F",
+    "X": 22,
+    "Y": 12,
+    "Z": 0.2,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 12
+  },
+  {
+    "Id": "F-02-2",
+    "Zona": "F",
+    "X": 22,
+    "Y": 12,
+    "Z": 1,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 12
+  },
+  {
+    "Id": "F-02-3",
+    "Zona": "F",
+    "X": 22,
+    "Y": 12,
+    "Z": 1.8,
+    "CapacidadM3": 1.5,
+    "NodoGrafo": 12
+  },
+  {
+    "Id": "D-03-1",
+    "Zona": "D",
+    "X": 24,
+    "Y": 10,
+    "Z": 0,
+    "CapacidadM3": 12,
+    "NodoGrafo": 8
+  }
+]

@@ -10,4 +10,11 @@
     <RollForward>Major</RollForward>
   </PropertyGroup>
 
+  <!-- Los archivos JSON se copian junto al .exe; solo se reemplazan si el del proyecto es más nuevo. -->
+  <ItemGroup>
+    <None Update="data\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

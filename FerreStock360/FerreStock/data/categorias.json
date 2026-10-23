@@ -1,0 +1,107 @@
+[
+  {
+    "Id": 1,
+    "Nombre": "Construcción",
+    "PadreId": null
+  },
+  {
+    "Id": 2,
+    "Nombre": "Plomería",
+    "PadreId": null
+  },
+  {
+    "Id": 3,
+    "Nombre": "Eléctricos",
+    "PadreId": null
+  },
+  {
+    "Id": 4,
+    "Nombre": "Tornillería",
+    "PadreId": null
+  },
+  {
+    "Id": 5,
+    "Nombre": "Pinturas",
+    "PadreId": null
+  },
+  {
+    "Id": 6,
+    "Nombre": "Herramientas",
+    "PadreId": null
+  },
+  {
+    "Id": 11,
+    "Nombre": "Cementos y pegantes",
+    "PadreId": 1
+  },
+  {
+    "Id": 12,
+    "Nombre": "Agregados",
+    "PadreId": 1
+  },
+  {
+    "Id": 13,
+    "Nombre": "Hierro y acero",
+    "PadreId": 1
+  },
+  {
+    "Id": 21,
+    "Nombre": "Tubería PVC",
+    "PadreId": 2
+  },
+  {
+    "Id": 22,
+    "Nombre": "Accesorios PVC",
+    "PadreId": 2
+  },
+  {
+    "Id": 31,
+    "Nombre": "Cables",
+    "PadreId": 3
+  },
+  {
+    "Id": 32,
+    "Nombre": "Interruptores y tomas",
+    "PadreId": 3
+  },
+  {
+    "Id": 33,
+    "Nombre": "Iluminación",
+    "PadreId": 3
+  },
+  {
+    "Id": 41,
+    "Nombre": "Tornillos y chazos",
+    "PadreId": 4
+  },
+  {
+    "Id": 42,
+    "Nombre": "Puntillas",
+    "PadreId": 4
+  },
+  {
+    "Id": 51,
+    "Nombre": "Vinilos",
+    "PadreId": 5
+  },
+  {
+    "Id": 52,
+    "Nombre": "Esmaltes y solventes",
+    "PadreId": 5
+  },
+  {
+    "Id": 53,
+    "Nombre": "Accesorios de pintura",
+    "PadreId": 5
+  },
+  {
+    "Id": 61,
+    "Nombre": "Herramienta manual",
+    "PadreId": 6
+  },
+  {
+    "Id": 62,
+    "Nombre": "Abrasivos y corte",
+    "PadreId": 6
+  }
+]

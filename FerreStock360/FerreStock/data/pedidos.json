@@ -1,0 +1,91 @@
+[
+  {
+    "Id": 1,
+    "Fecha": "2026-10-20T08:15:00",
+    "Cliente": "Constructora Andina",
+    "Prioridad": "Mayorista",
+    "Items": [
+      {
+        "CodigoProducto": "CON-001",
+        "Cantidad": 20
+      },
+      {
+        "CodigoProducto": "CON-006",
+        "Cantidad": 30
+      }
+    ],
+    "Estado": "Pendiente"
+  },
+  {
+    "Id": 2,
+    "Fecha": "2026-10-20T09:00:00",
+    "Cliente": "Juan Pérez",
+    "Prioridad": "Mostrador",
+    "Items": [
+      {
+        "CodigoProducto": "PLO-001",
+        "Cantidad": 3
+      },
+      {
+        "CodigoProducto": "PLO-004",
+        "Cantidad": 6
+      },
+      {
+        "CodigoProducto": "PLO-006",
+        "Cantidad": 1
+      }
+    ],
+    "Estado": "Pendiente"
+  },
+  {
+    "Id": 3,
+    "Fecha": "2026-10-20T09:30:00",
+    "Cliente": "Obra Calle 10",
+    "Prioridad": "Urgente",
+    "Items": [
+      {
+        "CodigoProducto": "CON-001",
+        "Cantidad": 10
+      },
+      {
+        "CodigoProducto": "CON-004",
+        "Cantidad": 1
+      }
+    ],
+    "Estado": "Pendiente"
+  },
+  {
+    "Id": 4,
+    "Fecha": "2026-10-20T10:10:00",
+    "Cliente": "María Gómez",
+    "Prioridad": "Mostrador",
+    "Items": [
+      {
+        "CodigoProducto": "PIN-001",
+        "Cantidad": 2
+      },
+      {
+        "CodigoProducto": "PIN-006",
+        "Cantidad": 1
+      }
+    ],
+    "Estado": "Pendiente"
+  },
+  {
+    "Id": 5,
+    "Fecha": "2026-10-20T10:45:00",
+    "Cliente": "Ferretería El Tornillo",
+    "Prioridad": "Mayorista",
+    "Items": [
+      {
+        "CodigoProducto": "TOR-001",
+        "Cantidad": 10
+      },
+      {
+        "CodigoProducto": "TOR-005",
+        "Cantidad": 5
+      }
+    ],
+    "Estado": "Pendiente"
+  }
+]
