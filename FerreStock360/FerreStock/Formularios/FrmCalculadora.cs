@@ -165,8 +165,9 @@ namespace FerreStock.Formularios
             lblResultadoCosto.Text =
                 "C(x, y, z) = r·(a·√(x² + y²) + b·p·z) = " + costo.ToString("N1") + "\n\n" +
                 "∇C = (" + g.X.ToString("N2") + ", " + g.Y.ToString("N2") + ", " + g.Z.ToString("N2") + ")\n" +
-                "Las tres componentes son positivas: el costo baja al acercar el producto\n" +
-                "al mostrador (x, y menores) y al bajarlo de nivel (z menor).";
+                "Las tres componentes son positivas: el costo baja\n" +
+                "al acercar el producto al mostrador (x, y menores)\n" +
+                "y al bajarlo de nivel (z menor).";
         }
 
         private void btnSugerir_Click(object sender, EventArgs e)
