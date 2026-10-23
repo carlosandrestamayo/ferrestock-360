@@ -17,7 +17,7 @@ sustentación: cada sección dice en qué archivo está el código.
 | `Dictionary<string, Producto>` | .NET | `InventarioServicio`: buscar producto por código | Buscar | O(1) promedio |
 | `List<T>` | .NET | Almacenamiento general y archivos JSON | Recorrer | O(n) |
 | Árbol de categorías (2 niveles) | Modelo `Categoria` con `PadreId` | Filtro con `TreeView` en Productos | Recorrer hijos | O(n) |
-| Grafo + Dijkstra | Pendiente (semana 3) | Ruta de alistamiento | — | O(V²) |
+| Grafo (lista de adyacencia) + Dijkstra | Propia: `Estructuras/Grafo.cs` | Ruta de alistamiento | Camino más corto | O(V²) |
 
 ---
 
@@ -150,7 +150,41 @@ categoría principal si es subcategoría (Cementos y pegantes, Tubería PVC…).
 niveles que se dibuja en el `TreeView` de Productos. Al elegir una categoría principal se muestran
 los productos de todas sus subcategorías (`InventarioServicio.PerteneceACategoria`).
 
-## 8. Pendiente (semana 3)
+## 8. Grafo con lista de adyacencia + Dijkstra → Ruta de alistamiento
 
-- **Grafo con lista de adyacencia** de los pasillos de la bodega (13 nodos; el nodo 0 es el mostrador)
-  y **Dijkstra O(V²)** para la ruta de alistamiento de un pedido.
+**Problema:** para alistar un pedido, el bodeguero sale del mostrador, pasa por varios estantes y
+vuelve. Se quiere el recorrido más corto **por los pasillos**, no en línea recta.
+
+**Modelo:** los pasillos forman un grafo no dirigido con pesos (`data/bodega.json`):
+
+- **Nodos (13):** cruces de pasillos; el nodo 0 es el mostrador.
+- **Aristas:** tramos rectos de pasillo; su peso es la distancia euclidiana entre los dos nodos
+  (se calcula con Pitágoras a partir de las coordenadas).
+- Cada `Ubicacion` guarda `NodoGrafo`, el nodo desde el que se alcanza ese estante.
+
+**Por qué lista de adyacencia y no matriz:** cada cruce tiene entre 1 y 4 vecinos. Una matriz 13 × 13
+gastaría 169 casillas, casi todas vacías; la lista guarda solo las 30 conexiones reales (15 pasillos,
+en los dos sentidos) → espacio O(V + E).
+
+**Dijkstra O(V²)** (`Grafo.Dijkstra`):
+
+1. Distancia 0 al origen e infinito a los demás.
+2. Repetir V veces: tomar el nodo **no visitado** de menor distancia (búsqueda lineal, O(V)), marcarlo
+   y "relajar" sus aristas: si llegar al vecino pasando por él es más corto, se actualiza la distancia
+   y se guarda de dónde se vino (`Anteriores`).
+3. El camino se reconstruye desde el destino siguiendo `Anteriores` hacia atrás. Para dejarlo en el
+   orden correcto se usa la **Pila propia** (`ResultadoDijkstra.CaminoHasta`).
+
+Son V vueltas de O(V) cada una → **O(V²)**. Con un heap sería O((V + E) log V), pero con 13 nodos la
+diferencia no se nota, y la versión simple se puede seguir a mano en el tablero. Funciona porque no hay
+distancias negativas: cuando un nodo se marca, ya no puede aparecer un camino más corto hacia él.
+
+**Varias paradas** (`BodegaServicio.CalcularRuta`): encontrar el mejor orden para visitar varias
+paradas es el problema del agente viajero, que es muy costoso de resolver exactamente. Se usa la regla
+del **vecino más cercano**: desde donde está, el bodeguero va a la parada pendiente más cercana según
+Dijkstra, y al final vuelve al mostrador. No siempre da el óptimo, pero da una buena ruta y es fácil de
+explicar.
+
+**Ejemplo (pedido 3: cemento en D-01-1 y arena en D-03-1):**
+mostrador → 1 → 2 → 3 → **4** (22,47 m) → **8** (6 m) → 4 → 3 → 2 → 1 → mostrador (28,47 m) = **56,94 m**.
+Lo verifica la prueba `BodegaServicioPruebas.Ruta_PedidoUrgenteDeLaSemilla`.
