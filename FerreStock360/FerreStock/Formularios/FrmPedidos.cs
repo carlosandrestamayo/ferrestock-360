@@ -150,6 +150,19 @@ namespace FerreStock.Formularios
 
         private async void btnCrearPedido_Click(object sender, EventArgs e)
         {
+            // Si falta stock se avisa antes de crear el pedido; el usuario decide si lo crea igual.
+            List<string> avisos = pedidos.RevisarStock(itemsNuevos);
+            if (avisos.Count > 0)
+            {
+                DialogResult respuesta = MessageBox.Show("No hay stock suficiente para:\n\n" + string.Join("\n", avisos) +
+                    "\n\nEl pedido no se podrá despachar hasta que llegue la mercancía. ¿Crearlo de todos modos?",
+                    "Stock insuficiente", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (respuesta != DialogResult.Yes)
+                {
+                    return;
+                }
+            }
+
             btnCrearPedido.Enabled = false;
             try
             {

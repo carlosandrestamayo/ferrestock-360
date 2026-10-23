@@ -109,6 +109,25 @@ namespace FerreStock.Servicios
             items.Add(new ItemPedido { CodigoProducto = codigoNormalizado, Cantidad = cantidad });
         }
 
+        /// <summary>
+        /// Revisa si hay stock para todos los ítems y devuelve un aviso por cada producto que no alcance.
+        /// No impide crear el pedido (la mercancía puede llegar antes de despacharlo), pero permite
+        /// advertirle al usuario desde el comienzo.
+        /// </summary>
+        public List<string> RevisarStock(List<ItemPedido> items)
+        {
+            List<string> avisos = new List<string>();
+            foreach (ItemPedido item in items)
+            {
+                Producto? producto = inventario.BuscarPorCodigo(item.CodigoProducto);
+                if (producto != null && item.Cantidad > producto.Stock)
+                {
+                    avisos.Add(producto.Codigo + " " + producto.Nombre + ": se piden " + item.Cantidad + " y hay " + producto.Stock + ".");
+                }
+            }
+            return avisos;
+        }
+
         /// <summary>Crea un pedido Pendiente y lo mete en la cola de prioridad.</summary>
         public async Task<Pedido> CrearPedidoAsync(string cliente, PrioridadPedido prioridad, List<ItemPedido> items)
         {

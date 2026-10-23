@@ -73,6 +73,20 @@ namespace FerreStock.Pruebas
         }
 
         [Fact]
+        public void RevisarStock_AvisaSoloLosProductosQueNoAlcanzan()
+        {
+            int stockCemento = inventario.BuscarPorCodigo("CON-001")!.Stock;
+            List<ItemPedido> items = new List<ItemPedido>();
+            servicio.AgregarItem(items, "CON-001", stockCemento + 1);
+            servicio.AgregarItem(items, "PLO-001", 1);
+
+            List<string> avisos = servicio.RevisarStock(items);
+
+            Assert.Single(avisos);
+            Assert.StartsWith("CON-001", avisos[0]);
+        }
+
+        [Fact]
         public async Task AtenderSiguiente_SacaElUrgenteYLoMarcaAlistado()
         {
             Pedido atendido = await servicio.AtenderSiguienteAsync();
