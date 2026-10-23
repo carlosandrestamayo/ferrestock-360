@@ -392,7 +392,7 @@ namespace FerreStock.Formularios
             lblStock.Name = "lblStock";
             lblStock.Size = new Size(36, 15);
             lblStock.TabIndex = 12;
-            lblStock.Text = "Stock";
+            lblStock.Text = "Stock inicial";
             //
             // nudStock
             //

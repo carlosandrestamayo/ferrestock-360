@@ -136,8 +136,11 @@ namespace FerreStock.Formularios
             PonerValor(nudVentasMes, p.VentasMes);
 
             // El código no se puede cambiar al editar porque identifica al producto.
+            // El stock tampoco: se cambia en Movimientos (entrada, salida o ajuste) para dejar registro.
             esNuevo = false;
             txtCodigo.ReadOnly = true;
+            nudStock.Enabled = false;
+            lblStock.Text = "Stock (Movimientos)";
             btnEliminar.Enabled = true;
             lblModo.Text = "Editando " + p.Codigo;
         }
@@ -186,6 +189,8 @@ namespace FerreStock.Formularios
 
             esNuevo = true;
             txtCodigo.ReadOnly = false;
+            nudStock.Enabled = true;
+            lblStock.Text = "Stock inicial";
             btnEliminar.Enabled = false;
             lblModo.Text = "Nuevo producto";
             dgvProductos.ClearSelection();

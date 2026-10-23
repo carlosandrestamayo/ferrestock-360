@@ -246,6 +246,8 @@ namespace FerreStock.Servicios
         /// <summary>
         /// Reemplaza los datos del producto que tiene el mismo código.
         /// El código no se puede cambiar porque es la llave del producto.
+        /// El STOCK tampoco se cambia aquí: solo cambia con entradas, salidas o ajustes
+        /// (MovimientoServicio), para que cada cambio quede registrado en el historial.
         /// </summary>
         public async Task EditarAsync(Producto cambios)
         {
@@ -259,6 +261,8 @@ namespace FerreStock.Servicios
             }
 
             // Se valida ANTES de copiar, para no dejar el producto a medio cambiar si hay un error.
+            // El stock que se valida es el actual, porque es el que se va a conservar.
+            cambios.Stock = existente.Stock;
             Validar(cambios);
 
             existente.Nombre = cambios.Nombre;
@@ -266,7 +270,6 @@ namespace FerreStock.Servicios
             existente.Unidad = cambios.Unidad;
             existente.PrecioCompra = cambios.PrecioCompra;
             existente.PrecioVenta = cambios.PrecioVenta;
-            existente.Stock = cambios.Stock;
             existente.StockMinimo = cambios.StockMinimo;
             existente.PesoKg = cambios.PesoKg;
             existente.VolumenUnitarioM3 = cambios.VolumenUnitarioM3;

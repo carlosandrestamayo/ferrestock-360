@@ -96,13 +96,27 @@ namespace FerreStock.Pruebas
             InventarioServicio servicio = new InventarioServicio();
             Producto cambios = CrearProductoValido("CON-001");
             cambios.Nombre = "Cemento gris 50 kg (editado)";
-            cambios.Stock = 99;
+            cambios.StockMinimo = 40;
 
             await servicio.EditarAsync(cambios);
 
             Producto? editado = new InventarioServicio().BuscarPorCodigo("CON-001");
             Assert.Equal("Cemento gris 50 kg (editado)", editado!.Nombre);
-            Assert.Equal(99, editado.Stock);
+            Assert.Equal(40, editado.StockMinimo);
+        }
+
+        [Fact]
+        public async Task Editar_NoCambiaElStock()
+        {
+            InventarioServicio servicio = new InventarioServicio();
+            int stockAntes = servicio.BuscarPorCodigo("CON-001")!.Stock;
+            Producto cambios = CrearProductoValido("CON-001");
+            cambios.Stock = 9999;
+
+            await servicio.EditarAsync(cambios);
+
+            // El stock solo cambia con movimientos, para que quede registro de cada cambio.
+            Assert.Equal(stockAntes, servicio.BuscarPorCodigo("CON-001")!.Stock);
         }
 
         [Fact]
