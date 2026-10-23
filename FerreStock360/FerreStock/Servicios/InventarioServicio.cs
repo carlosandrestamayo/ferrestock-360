@@ -273,7 +273,8 @@ namespace FerreStock.Servicios
                 throw new ArgumentException("No existe un producto con el código " + codigo + ".");
             }
 
-            // TODO estudiante: no permitir eliminar un producto que esté en un pedido pendiente.
+            // Ojo: antes de llamar este método, el formulario pide a PedidoServicio que verifique
+            // que el producto no esté en un pedido sin despachar (ValidarEliminacionProducto).
 
             productos.Remove(producto);
             productosPorCodigo.Remove(producto.Codigo);

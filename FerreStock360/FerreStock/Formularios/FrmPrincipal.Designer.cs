@@ -49,6 +49,7 @@ namespace FerreStock.Formularios
             lblSubtitulo = new Label();
             btnProductos = new Button();
             btnMovimientos = new Button();
+            btnPedidos = new Button();
             menuPrincipal.SuspendLayout();
             barraEstado.SuspendLayout();
             SuspendLayout();
@@ -105,10 +106,11 @@ namespace FerreStock.Formularios
             //
             // mnuPedidos
             //
-            mnuPedidos.Enabled = false;
             mnuPedidos.Name = "mnuPedidos";
+            mnuPedidos.ShortcutKeys = Keys.Control | Keys.D;
             mnuPedidos.Size = new Size(180, 22);
-            mnuPedidos.Text = "Pedidos (semana 2)";
+            mnuPedidos.Text = "Pe&didos";
+            mnuPedidos.Click += mnuPedidos_Click;
             //
             // mnuBodega
             //
@@ -220,12 +222,25 @@ namespace FerreStock.Formularios
             btnMovimientos.Text = "Movimientos";
             btnMovimientos.UseVisualStyleBackColor = true;
             btnMovimientos.Click += btnMovimientos_Click;
+            // 
+            // btnPedidos
+            // 
+            btnPedidos.Anchor = AnchorStyles.Top;
+            btnPedidos.Font = new Font("Segoe UI", 12F);
+            btnPedidos.Location = new Point(510, 210);
+            btnPedidos.Name = "btnPedidos";
+            btnPedidos.Size = new Size(180, 50);
+            btnPedidos.TabIndex = 6;
+            btnPedidos.Text = "Pedidos";
+            btnPedidos.UseVisualStyleBackColor = true;
+            btnPedidos.Click += btnPedidos_Click;
             //
             // FrmPrincipal
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnPedidos);
             Controls.Add(btnMovimientos);
             Controls.Add(btnProductos);
             Controls.Add(lblSubtitulo);
@@ -269,5 +284,6 @@ namespace FerreStock.Formularios
         private Label lblSubtitulo;
         private Button btnProductos;
         private Button btnMovimientos;
+        private Button btnPedidos;
     }
 }

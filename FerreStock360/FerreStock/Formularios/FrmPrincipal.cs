@@ -11,6 +11,7 @@ namespace FerreStock.Formularios
     {
         private InventarioServicio? inventario;
         private MovimientoServicio? movimientos;
+        private PedidoServicio? pedidos;
 
         public FrmPrincipal()
         {
@@ -23,6 +24,7 @@ namespace FerreStock.Formularios
             {
                 inventario = new InventarioServicio();
                 movimientos = new MovimientoServicio(inventario);
+                pedidos = new PedidoServicio(inventario, movimientos);
                 ActualizarBarraEstado();
             }
             catch (Exception ex)
@@ -58,13 +60,13 @@ namespace FerreStock.Formularios
 
         private void AbrirProductos()
         {
-            if (inventario == null)
+            if (inventario == null || pedidos == null)
             {
                 return;
             }
             // ShowDialog abre la ventana y espera a que se cierre;
             // después se actualiza la barra de estado con los cambios hechos.
-            using (FrmProductos frm = new FrmProductos(inventario))
+            using (FrmProductos frm = new FrmProductos(inventario, pedidos))
             {
                 frm.ShowDialog(this);
             }
@@ -78,6 +80,19 @@ namespace FerreStock.Formularios
                 return;
             }
             using (FrmMovimientos frm = new FrmMovimientos(inventario, movimientos))
+            {
+                frm.ShowDialog(this);
+            }
+            ActualizarBarraEstado();
+        }
+
+        private void AbrirPedidos()
+        {
+            if (inventario == null || pedidos == null)
+            {
+                return;
+            }
+            using (FrmPedidos frm = new FrmPedidos(inventario, pedidos))
             {
                 frm.ShowDialog(this);
             }
@@ -102,6 +117,16 @@ namespace FerreStock.Formularios
         private void btnMovimientos_Click(object sender, EventArgs e)
         {
             AbrirMovimientos();
+        }
+
+        private void mnuPedidos_Click(object sender, EventArgs e)
+        {
+            AbrirPedidos();
+        }
+
+        private void btnPedidos_Click(object sender, EventArgs e)
+        {
+            AbrirPedidos();
         }
 
         private void mnuSalir_Click(object sender, EventArgs e)

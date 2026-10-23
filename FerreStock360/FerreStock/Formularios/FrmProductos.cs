@@ -11,15 +11,17 @@ namespace FerreStock.Formularios
     public partial class FrmProductos : Form
     {
         private readonly InventarioServicio inventario;
+        private readonly PedidoServicio pedidos;
 
         // true cuando el panel de la derecha está creando un producto nuevo;
         // false cuando está editando uno que el usuario eligió en la tabla.
         private bool esNuevo = true;
 
-        public FrmProductos(InventarioServicio inventario)
+        public FrmProductos(InventarioServicio inventario, PedidoServicio pedidos)
         {
             InitializeComponent();
             this.inventario = inventario;
+            this.pedidos = pedidos;
         }
 
         private void FrmProductos_Load(object sender, EventArgs e)
@@ -304,6 +306,17 @@ namespace FerreStock.Formularios
         private async void btnEliminar_Click(object sender, EventArgs e)
         {
             string codigo = txtCodigo.Text;
+            try
+            {
+                // Un producto que está en un pedido sin despachar no se puede eliminar.
+                pedidos.ValidarEliminacionProducto(codigo);
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "No se puede eliminar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             DialogResult respuesta = MessageBox.Show("¿Eliminar el producto " + codigo + "?\nEsta acción no se puede deshacer.",
                 "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (respuesta != DialogResult.Yes)
