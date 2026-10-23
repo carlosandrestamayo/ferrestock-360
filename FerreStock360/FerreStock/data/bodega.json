@@ -1,0 +1,142 @@
+[
+  {
+    "Id": 0,
+    "Nombre": "Mostrador",
+    "X": 0,
+    "Y": 0,
+    "Vecinos": [
+      1
+    ]
+  },
+  {
+    "Id": 1,
+    "Nombre": "Pasillo 1 - zona A",
+    "X": 4,
+    "Y": 2,
+    "Vecinos": [
+      0,
+      2,
+      5
+    ]
+  },
+  {
+    "Id": 2,
+    "Nombre": "Pasillo 1 - zona B",
+    "X": 10,
+    "Y": 2,
+    "Vecinos": [
+      1,
+      3,
+      6
+    ]
+  },
+  {
+    "Id": 3,
+    "Nombre": "Pasillo 1 - zona C",
+    "X": 16,
+    "Y": 2,
+    "Vecinos": [
+      2,
+      4,
+      7
+    ]
+  },
+  {
+    "Id": 4,
+    "Nombre": "Pasillo 1 - zona D",
+    "X": 22,
+    "Y": 2,
+    "Vecinos": [
+      3,
+      8
+    ]
+  },
+  {
+    "Id": 5,
+    "Nombre": "Pasillo 2 - zona A",
+    "X": 4,
+    "Y": 8,
+    "Vecinos": [
+      1,
+      6,
+      9
+    ]
+  },
+  {
+    "Id": 6,
+    "Nombre": "Pasillo 2 - zona B",
+    "X": 10,
+    "Y": 8,
+    "Vecinos": [
+      2,
+      5,
+      7,
+      10
+    ]
+  },
+  {
+    "Id": 7,
+    "Nombre": "Pasillo 2 - zona C",
+    "X": 16,
+    "Y": 8,
+    "Vecinos": [
+      3,
+      6,
+      8,
+      11
+    ]
+  },
+  {
+    "Id": 8,
+    "Nombre": "Pasillo 2 - zona D",
+    "X": 22,
+    "Y": 8,
+    "Vecinos": [
+      4,
+      7,
+      12
+    ]
+  },
+  {
+    "Id": 9,
+    "Nombre": "Pasillo 3 - zona E",
+    "X": 4,
+    "Y": 14,
+    "Vecinos": [
+      5,
+      10
+    ]
+  },
+  {
+    "Id": 10,
+    "Nombre": "Pasillo 3 - zona E",
+    "X": 10,
+    "Y": 14,
+    "Vecinos": [
+      6,
+      9,
+      11
+    ]
+  },
+  {
+    "Id": 11,
+    "Nombre": "Pasillo 3 - zona F",
+    "X": 16,
+    "Y": 14,
+    "Vecinos": [
+      7,
+      10,
+      12
+    ]
+  },
+  {
+    "Id": 12,
+    "Nombre": "Pasillo 3 - zona F",
+    "X": 22,
+    "Y": 14,
+    "Vecinos": [
+      8,
+      11
+    ]
+  }
+]

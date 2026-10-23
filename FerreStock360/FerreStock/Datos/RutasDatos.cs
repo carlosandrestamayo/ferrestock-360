@@ -16,5 +16,6 @@ namespace FerreStock.Datos
         public static string Ubicaciones => Path.Combine(Carpeta, "ubicaciones.json");
         public static string Movimientos => Path.Combine(Carpeta, "movimientos.json");
         public static string Pedidos => Path.Combine(Carpeta, "pedidos.json");
+        public static string Bodega => Path.Combine(Carpeta, "bodega.json");
     }
 }

@@ -4,18 +4,21 @@ namespace FerreStock.Datos
 {
     /// <summary>
     /// Datos de ejemplo ("semilla") que se usan cuando un archivo JSON todavía no existe.
-    /// Representan una ferretería con bodega de 24 m x 16 m y el mostrador en el origen (0, 0).
+    /// Representan una ferretería con bodega de 26 m x 16 m y el mostrador en el origen (0, 0).
     ///
-    /// Plano simplificado (vista desde arriba, Y crece hacia el fondo):
+    /// Plano simplificado (vista desde arriba, Y crece hacia el fondo). Los pasillos son las
+    /// líneas entre nodos (N0...N12). Cada estante está al lado de un pasillo vertical y su
+    /// X, Y es el punto del pasillo desde donde se alcanza (por eso coincide con la línea).
     ///
-    ///   y=14   N9 ----- N10 ----- N11 ----- N12
-    ///   y=12   [E-01]   [E-02]    [F-01]    [F-02]
-    ///   y=8    N5 ----- N6 ------ N7 ------ N8      [D-03 patio]
-    ///   y=6    [A-02]   [B-02]    [C-02]    [D-02]
-    ///   y=4    [A-01]   [B-01]    [C-01]    [D-01]
-    ///   y=2    N1 ----- N2 ------ N3 ------ N4
-    ///   y=0    N0 (mostrador)
-    ///          x=4      x=10      x=16      x=22
+    ///   y=14   N9 ------ N10 ------ N11 ------ N12
+    ///   y=12   |[E-01]   |[E-02]    |[F-01]    |[F-02]
+    ///   y=8    N5 ------ N6 ------- N7 ------- N8     [D-03 patio]
+    ///   y=6    |[A-02]   |[B-02]    |[C-02]    |[D-02]
+    ///   y=4    |[A-01]   |[B-01]    |[C-01]    |[D-01]
+    ///   y=2    N1 ------ N2 ------- N3 ------- N4
+    ///         /
+    ///   y=0  N0 (mostrador)
+    ///          x=4       x=10       x=16       x=22
     ///
     /// A propósito, los productos pesados y de alta venta (zona D) quedan lejos
     /// del mostrador: así es la situación "antes" que el proyecto quiere mejorar.
@@ -100,6 +103,44 @@ namespace FerreStock.Datos
                 u.NodoGrafo = nodo;
                 lista.Add(u);
             }
+        }
+
+        public static List<NodoBodega> CrearNodosBodega()
+        {
+            List<NodoBodega> lista = new List<NodoBodega>();
+
+            // TODO estudiante: dibujar los pasillos reales de la bodega y ajustar nodos y vecinos.
+            // Parámetros: id, nombre, x, y, vecinos.
+            lista.Add(N(0, "Mostrador", 0, 0, 1));
+            lista.Add(N(1, "Pasillo 1 - zona A", 4, 2, 0, 2, 5));
+            lista.Add(N(2, "Pasillo 1 - zona B", 10, 2, 1, 3, 6));
+            lista.Add(N(3, "Pasillo 1 - zona C", 16, 2, 2, 4, 7));
+            lista.Add(N(4, "Pasillo 1 - zona D", 22, 2, 3, 8));
+            lista.Add(N(5, "Pasillo 2 - zona A", 4, 8, 1, 6, 9));
+            lista.Add(N(6, "Pasillo 2 - zona B", 10, 8, 2, 5, 7, 10));
+            lista.Add(N(7, "Pasillo 2 - zona C", 16, 8, 3, 6, 8, 11));
+            lista.Add(N(8, "Pasillo 2 - zona D", 22, 8, 4, 7, 12));
+            lista.Add(N(9, "Pasillo 3 - zona E", 4, 14, 5, 10));
+            lista.Add(N(10, "Pasillo 3 - zona E", 10, 14, 6, 9, 11));
+            lista.Add(N(11, "Pasillo 3 - zona F", 16, 14, 7, 10, 12));
+            lista.Add(N(12, "Pasillo 3 - zona F", 22, 14, 8, 11));
+
+            return lista;
+        }
+
+        // "params int[] vecinos" permite escribir los vecinos separados por comas al final.
+        private static NodoBodega N(int id, string nombre, double x, double y, params int[] vecinos)
+        {
+            NodoBodega nodo = new NodoBodega();
+            nodo.Id = id;
+            nodo.Nombre = nombre;
+            nodo.X = x;
+            nodo.Y = y;
+            foreach (int v in vecinos)
+            {
+                nodo.Vecinos.Add(v);
+            }
+            return nodo;
         }
 
         public static List<Producto> CrearProductos()
