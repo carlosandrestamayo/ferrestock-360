@@ -129,6 +129,15 @@ namespace FerreStock.Formularios
             AbrirPedidos();
         }
 
+        private void mnuComparador_Click(object sender, EventArgs e)
+        {
+            // El comparador usa datos generados, no necesita los servicios.
+            using (FrmComparadorAlgoritmos frm = new FrmComparadorAlgoritmos())
+            {
+                frm.ShowDialog(this);
+            }
+        }
+
         private void mnuSalir_Click(object sender, EventArgs e)
         {
             Close();

@@ -149,10 +149,10 @@ namespace FerreStock.Formularios
             //
             // mnuComparador
             //
-            mnuComparador.Enabled = false;
             mnuComparador.Name = "mnuComparador";
             mnuComparador.Size = new Size(260, 22);
-            mnuComparador.Text = "Comparador de algoritmos (semana 2)";
+            mnuComparador.Text = "&Comparador de algoritmos";
+            mnuComparador.Click += mnuComparador_Click;
             //
             // barraEstado
             //

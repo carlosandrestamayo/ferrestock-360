@@ -139,4 +139,28 @@ namespace FerreStock.Pruebas
             Assert.Equal(-1, Busquedas.Lineal(lista, "NO-EXISTE").Indice);
         }
     }
+
+    public class ComparadorPruebas
+    {
+        [Fact]
+        public void MedirOrdenamientos_DevuelveTiemposValidos()
+        {
+            ResultadoOrdenamiento resultado = Comparador.MedirOrdenamientos(200, new Random(1));
+
+            Assert.Equal(200, resultado.N);
+            Assert.True(resultado.MsBurbuja >= 0);
+            Assert.True(resultado.MsInsercion >= 0);
+            Assert.True(resultado.MsListSort >= 0);
+        }
+
+        [Fact]
+        public void MedirBusquedas_BinariaHaceMenosComparaciones()
+        {
+            ResultadoBusquedas resultado = Comparador.MedirBusquedas(1000, new Random(1), 200);
+
+            // Lineal ≈ n/2 = 500 en promedio; binaria ≈ log₂(1000) ≈ 10.
+            Assert.True(resultado.ComparacionesLineal > 100);
+            Assert.True(resultado.ComparacionesBinaria <= 11);
+        }
+    }
 }
