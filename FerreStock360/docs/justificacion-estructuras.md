@@ -163,7 +163,7 @@ vuelve. Se quiere el recorrido más corto **por los pasillos**, no en línea rec
 - Cada `Ubicacion` guarda `NodoGrafo`, el nodo desde el que se alcanza ese estante.
 
 **Por qué lista de adyacencia y no matriz:** cada cruce tiene entre 1 y 4 vecinos. Una matriz 13 × 13
-gastaría 169 casillas, casi todas vacías; la lista guarda solo las 30 conexiones reales (15 pasillos,
+gastaría 169 casillas, casi todas vacías; la lista guarda solo las 36 conexiones reales (18 pasillos,
 en los dos sentidos) → espacio O(V + E).
 
 **Dijkstra O(V²)** (`Grafo.Dijkstra`):
