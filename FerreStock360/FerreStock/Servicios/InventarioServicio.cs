@@ -354,6 +354,9 @@ namespace FerreStock.Servicios
             {
                 throw new ArgumentException("La ubicación " + p.UbicacionId + " no existe en la bodega.");
             }
+
+            // TODO estudiante: validar que el volumen del stock (Stock × VolumenUnitarioM3) más lo que ya
+            // ocupan los otros productos de esa ubicación no supere su CapacidadM3.
         }
 
         public async Task GuardarAsync()

@@ -59,5 +59,8 @@ namespace FerreStock.Pruebas
             Assert.Equal(2, pila.VerTope());
             Assert.Equal(1, pila.Cantidad);
         }
+
+        // TODO estudiante: agregar una prueba que apile 1.000 elementos y compruebe que salen
+        // en el orden inverso y que Cantidad vuelve a 0.
     }
 }
