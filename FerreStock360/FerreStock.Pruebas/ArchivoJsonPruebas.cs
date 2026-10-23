@@ -76,6 +76,20 @@ namespace FerreStock.Pruebas
         }
 
         [Fact]
+        public async Task GuardarDosVeces_QuedaLoUltimoYNoQuedanTemporales()
+        {
+            string ruta = Path.Combine(carpeta, "categorias.json");
+
+            await ArchivoJson.GuardarAsync(ruta, new List<Categoria> { new Categoria { Id = 1, Nombre = "Primera" } });
+            await ArchivoJson.GuardarAsync(ruta, new List<Categoria> { new Categoria { Id = 2, Nombre = "Segunda" } });
+
+            List<Categoria> cargadas = ArchivoJson.Cargar(ruta, new List<Categoria>());
+            Assert.Single(cargadas);
+            Assert.Equal("Segunda", cargadas[0].Nombre);
+            Assert.False(File.Exists(ruta + ".tmp"));
+        }
+
+        [Fact]
         public void Cargar_ArchivoDaniado_LanzaErrorConMensajeClaro()
         {
             string ruta = Path.Combine(carpeta, "productos.json");

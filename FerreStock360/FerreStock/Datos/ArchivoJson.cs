@@ -64,12 +64,21 @@ namespace FerreStock.Datos
         /// <summary>
         /// Guarda la lista completa en <paramref name="ruta"/>, reemplazando el contenido anterior.
         /// Es asíncrono para que la ventana no se congele mientras se escribe el archivo.
+        ///
+        /// Guardado seguro: si se escribiera directo sobre el archivo y el programa se cerrara a la mitad
+        /// (o se fuera la luz), el JSON quedaría cortado y no se podría volver a abrir. Por eso:
+        ///   1. se escribe todo en un archivo temporal ("productos.json.tmp"),
+        ///   2. y solo cuando terminó bien, se reemplaza el archivo original de una sola vez (File.Move).
+        /// Así el archivo original siempre tiene o los datos viejos completos o los nuevos completos.
         /// </summary>
         public static async Task GuardarAsync<T>(string ruta, List<T> datos)
         {
             CrearCarpetaSiNoExiste(ruta);
             string texto = JsonSerializer.Serialize(datos, opciones);
-            await File.WriteAllTextAsync(ruta, texto);
+            string temporal = ruta + ".tmp";
+            await File.WriteAllTextAsync(temporal, texto);
+            // El último parámetro (true) permite reemplazar el archivo si ya existe.
+            File.Move(temporal, ruta, true);
         }
 
         private static void CrearCarpetaSiNoExiste(string ruta)
