@@ -65,19 +65,21 @@ namespace FerreStock.Datos
             List<Ubicacion> lista = new List<Ubicacion>();
 
             // TODO estudiante: ajustar las coordenadas al plano real de la bodega.
-            // Cada estante tiene 3 niveles. Parámetros: zona, estante, x, y, nodo, capacidad por nivel.
-            AgregarEstante(lista, "A", 1, 4, 4, 1, 1.5);
-            AgregarEstante(lista, "A", 2, 4, 6, 5, 1.5);
-            AgregarEstante(lista, "B", 1, 10, 4, 2, 1.5);
-            AgregarEstante(lista, "B", 2, 10, 6, 6, 1.5);
-            AgregarEstante(lista, "C", 1, 16, 4, 3, 1.5);
-            AgregarEstante(lista, "C", 2, 16, 6, 7, 1.5);
-            AgregarEstante(lista, "D", 1, 22, 4, 4, 4.0);
-            AgregarEstante(lista, "D", 2, 22, 6, 8, 4.0);
-            AgregarEstante(lista, "E", 1, 4, 12, 9, 1.5);
-            AgregarEstante(lista, "E", 2, 10, 12, 10, 1.5);
-            AgregarEstante(lista, "F", 1, 16, 12, 11, 1.5);
-            AgregarEstante(lista, "F", 2, 22, 12, 12, 1.5);
+            // Cada estante tiene 3 niveles. El nivel 1 es una estiba en el piso, donde cabe más
+            // (y donde deben ir los productos pesados); los niveles 2 y 3 son entrepaños.
+            // Parámetros: zona, estante, x, y, nodo, capacidad del piso, capacidad de cada entrepaño.
+            AgregarEstante(lista, "A", 1, 4, 4, 1, 3.0, 1.5);
+            AgregarEstante(lista, "A", 2, 4, 6, 5, 3.0, 1.5);
+            AgregarEstante(lista, "B", 1, 10, 4, 2, 3.0, 1.5);
+            AgregarEstante(lista, "B", 2, 10, 6, 6, 3.0, 1.5);
+            AgregarEstante(lista, "C", 1, 16, 4, 3, 3.0, 1.5);
+            AgregarEstante(lista, "C", 2, 16, 6, 7, 3.0, 1.5);
+            AgregarEstante(lista, "D", 1, 22, 4, 4, 4.0, 4.0);
+            AgregarEstante(lista, "D", 2, 22, 6, 8, 4.0, 4.0);
+            AgregarEstante(lista, "E", 1, 4, 12, 9, 3.0, 1.5);
+            AgregarEstante(lista, "E", 2, 10, 12, 10, 3.0, 1.5);
+            AgregarEstante(lista, "F", 1, 16, 12, 11, 3.0, 1.5);
+            AgregarEstante(lista, "F", 2, 22, 12, 12, 3.0, 1.5);
 
             // El patio de arena y gravilla no es un estante: es una sola ubicación en el piso.
             lista.Add(new Ubicacion { Id = "D-03-1", Zona = "D", X = 24, Y = 10, Z = 0, CapacidadM3 = 12, NodoGrafo = 8 });
@@ -87,7 +89,7 @@ namespace FerreStock.Datos
 
         // Crea los 3 niveles de un estante. Todos comparten X, Y y nodo; solo cambia la altura Z.
         private static void AgregarEstante(List<Ubicacion> lista, string zona, int estante,
-                                           double x, double y, int nodo, double capacidad)
+                                           double x, double y, int nodo, double capacidadPiso, double capacidadEntrepano)
         {
             double[] alturas = { 0.2, 1.0, 1.8 }; // metros del piso a cada nivel
             for (int nivel = 1; nivel <= 3; nivel++)
@@ -99,7 +101,14 @@ namespace FerreStock.Datos
                 u.X = x;
                 u.Y = y;
                 u.Z = alturas[nivel - 1];
-                u.CapacidadM3 = capacidad;
+                if (nivel == 1)
+                {
+                    u.CapacidadM3 = capacidadPiso;
+                }
+                else
+                {
+                    u.CapacidadM3 = capacidadEntrepano;
+                }
                 u.NodoGrafo = nodo;
                 lista.Add(u);
             }

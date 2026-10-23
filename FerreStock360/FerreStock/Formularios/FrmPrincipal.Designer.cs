@@ -129,10 +129,10 @@ namespace FerreStock.Formularios
             //
             // mnuCalculadora
             //
-            mnuCalculadora.Enabled = false;
             mnuCalculadora.Name = "mnuCalculadora";
             mnuCalculadora.Size = new Size(220, 22);
-            mnuCalculadora.Text = "Calculadora (semana 3)";
+            mnuCalculadora.Text = "&Calculadora matemática";
+            mnuCalculadora.Click += mnuCalculadora_Click;
             //
             // mnuReportes
             //

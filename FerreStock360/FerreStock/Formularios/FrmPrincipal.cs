@@ -143,6 +143,18 @@ namespace FerreStock.Formularios
             }
         }
 
+        private void mnuCalculadora_Click(object sender, EventArgs e)
+        {
+            if (inventario == null || bodega == null || pedidos == null)
+            {
+                return;
+            }
+            using (FrmCalculadora frm = new FrmCalculadora(inventario, bodega, pedidos))
+            {
+                frm.ShowDialog(this);
+            }
+        }
+
         private void mnuComparador_Click(object sender, EventArgs e)
         {
             // El comparador usa datos generados, no necesita los servicios.

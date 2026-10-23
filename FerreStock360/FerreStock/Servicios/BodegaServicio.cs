@@ -1,5 +1,6 @@
 using FerreStock.Datos;
 using FerreStock.Estructuras;
+using FerreStock.Matematica;
 using FerreStock.Modelos;
 
 namespace FerreStock.Servicios
@@ -29,6 +30,45 @@ namespace FerreStock.Servicios
 
         // Productos del pedido que no tienen ubicación y no se pueden incluir en la ruta.
         public List<string> SinUbicacion { get; set; } = new List<string>();
+    }
+
+    /// <summary>Ubicación actual y ubicación de menor costo sugerida para un producto.</summary>
+    public class SugerenciaUbicacion
+    {
+        public string Codigo { get; set; } = "";
+        public string Nombre { get; set; } = "";
+        public string UbicacionActual { get; set; } = "";
+        public double CostoActual { get; set; }
+        public string UbicacionSugerida { get; set; } = "";
+        public double CostoSugerido { get; set; }
+
+        public double Ahorro
+        {
+            get { return CostoActual - CostoSugerido; }
+        }
+    }
+
+    /// <summary>Comparación de las rutas de alistamiento con las ubicaciones actuales y con las sugeridas.</summary>
+    public class ResultadoSimulacion
+    {
+        public int CantidadPedidos { get; set; }
+        public double DistanciaPromedioAntes { get; set; }
+        public double DistanciaPromedioDespues { get; set; }
+        public double MinutosPromedioAntes { get; set; }
+        public double MinutosPromedioDespues { get; set; }
+
+        /// <summary>Cuánto baja el tiempo de alistamiento, en porcentaje.</summary>
+        public double ReduccionTiempoPorcentaje
+        {
+            get
+            {
+                if (MinutosPromedioAntes == 0)
+                {
+                    return 0;
+                }
+                return (MinutosPromedioAntes - MinutosPromedioDespues) / MinutosPromedioAntes * 100;
+            }
+        }
     }
 
     /// <summary>
@@ -202,6 +242,133 @@ namespace FerreStock.Servicios
             double segundos = ruta.DistanciaM / VelocidadMetrosPorSegundo + cantidadItems * SegundosPorItem;
             ruta.MinutosEstimados = segundos / 60;
             return ruta;
+        }
+
+        // ---------------------------------------------------------------
+        // Optimización de ubicaciones y simulación
+        // ---------------------------------------------------------------
+
+        /// <summary>
+        /// Sugiere para cada producto la ubicación de menor costo C(x, y, z) en la que quepa su stock.
+        ///
+        /// Regla (algoritmo voraz): los productos que más "pierden" por estar lejos escogen primero.
+        /// Esa prioridad es r·(a + b·p): crece con las ventas y con el peso. Cada producto toma la
+        /// ubicación más barata que todavía tenga espacio, y ese espacio se descuenta.
+        /// </summary>
+        public List<SugerenciaUbicacion> SugerirUbicaciones(double a, double b)
+        {
+            // Paso 1: espacio libre de cada ubicación (al comienzo, toda su capacidad).
+            Dictionary<string, double> espacioLibre = new Dictionary<string, double>();
+            foreach (Ubicacion u in inventario.ObtenerUbicaciones())
+            {
+                espacioLibre[u.Id] = u.CapacidadM3;
+            }
+
+            // Paso 2: ir sacando el producto de mayor prioridad que falte (selección simple, O(n²)).
+            List<Producto> pendientes = new List<Producto>(inventario.ObtenerProductos());
+            List<SugerenciaUbicacion> resultado = new List<SugerenciaUbicacion>();
+            while (pendientes.Count > 0)
+            {
+                Producto elegido = pendientes[0];
+                foreach (Producto p in pendientes)
+                {
+                    if (Prioridad(p, a, b) > Prioridad(elegido, a, b))
+                    {
+                        elegido = p;
+                    }
+                }
+                pendientes.Remove(elegido);
+
+                // Paso 3: buscar la ubicación más barata con espacio suficiente.
+                double volumen = elegido.Stock * elegido.VolumenUnitarioM3;
+                Ubicacion? mejor = null;
+                double costoMejor = double.MaxValue;
+                foreach (Ubicacion u in inventario.ObtenerUbicaciones())
+                {
+                    if (espacioLibre[u.Id] < volumen)
+                    {
+                        continue;
+                    }
+                    double costo = CostoUbicacion.Costo(elegido.VentasMes, elegido.PesoKg, u.X, u.Y, u.Z, a, b);
+                    if (costo < costoMejor)
+                    {
+                        costoMejor = costo;
+                        mejor = u;
+                    }
+                }
+
+                SugerenciaUbicacion sugerencia = new SugerenciaUbicacion();
+                sugerencia.Codigo = elegido.Codigo;
+                sugerencia.Nombre = elegido.Nombre;
+                sugerencia.UbicacionActual = elegido.UbicacionId;
+                Ubicacion? actual = BuscarUbicacion(elegido.UbicacionId);
+                if (actual != null)
+                {
+                    sugerencia.CostoActual = CostoUbicacion.Costo(elegido.VentasMes, elegido.PesoKg, actual.X, actual.Y, actual.Z, a, b);
+                }
+
+                if (mejor == null)
+                {
+                    // No cabe en ninguna parte: se deja donde está.
+                    sugerencia.UbicacionSugerida = elegido.UbicacionId;
+                    sugerencia.CostoSugerido = sugerencia.CostoActual;
+                }
+                else
+                {
+                    espacioLibre[mejor.Id] = espacioLibre[mejor.Id] - volumen;
+                    sugerencia.UbicacionSugerida = mejor.Id;
+                    sugerencia.CostoSugerido = costoMejor;
+                }
+                resultado.Add(sugerencia);
+            }
+            return resultado;
+        }
+
+        // Cuánto aumenta el costo del producto por cada metro de distancia y de altura.
+        private static double Prioridad(Producto p, double a, double b)
+        {
+            return p.VentasMes * (a + b * p.PesoKg);
+        }
+
+        /// <summary>
+        /// Simulación para la pregunta de investigación: calcula la ruta de cada pedido con las
+        /// ubicaciones actuales ("antes") y con las sugeridas ("después") y compara los promedios.
+        /// </summary>
+        public ResultadoSimulacion SimularAntesDespues(List<Pedido> pedidos, double a, double b)
+        {
+            Dictionary<string, string> antes = UbicacionesActuales();
+            Dictionary<string, string> despues = new Dictionary<string, string>();
+            foreach (SugerenciaUbicacion s in SugerirUbicaciones(a, b))
+            {
+                despues[s.Codigo] = s.UbicacionSugerida;
+            }
+
+            ResultadoSimulacion resultado = new ResultadoSimulacion();
+            if (pedidos.Count == 0)
+            {
+                return resultado;
+            }
+
+            double distanciaAntes = 0;
+            double distanciaDespues = 0;
+            double minutosAntes = 0;
+            double minutosDespues = 0;
+            foreach (Pedido pedido in pedidos)
+            {
+                RutaAlistamiento rutaAntes = CalcularRuta(pedido, antes);
+                RutaAlistamiento rutaDespues = CalcularRuta(pedido, despues);
+                distanciaAntes += rutaAntes.DistanciaM;
+                distanciaDespues += rutaDespues.DistanciaM;
+                minutosAntes += rutaAntes.MinutosEstimados;
+                minutosDespues += rutaDespues.MinutosEstimados;
+            }
+
+            resultado.CantidadPedidos = pedidos.Count;
+            resultado.DistanciaPromedioAntes = distanciaAntes / pedidos.Count;
+            resultado.DistanciaPromedioDespues = distanciaDespues / pedidos.Count;
+            resultado.MinutosPromedioAntes = minutosAntes / pedidos.Count;
+            resultado.MinutosPromedioDespues = minutosDespues / pedidos.Count;
+            return resultado;
         }
 
         // Un tramo empieza en el nodo donde ya está la ruta: se omite el primero para no repetirlo.

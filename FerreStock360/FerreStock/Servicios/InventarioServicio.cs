@@ -210,6 +210,17 @@ namespace FerreStock.Servicios
             return resultado;
         }
 
+        /// <summary>Volumen total que ocupa la mercancía en bodega: Σ stock × volumen unitario (m³).</summary>
+        public double VolumenOcupado()
+        {
+            double total = 0;
+            foreach (Producto p in productos)
+            {
+                total += p.Stock * p.VolumenUnitarioM3;
+            }
+            return total;
+        }
+
         // ---------------------------------------------------------------
         // Crear, editar y eliminar
         // ---------------------------------------------------------------
