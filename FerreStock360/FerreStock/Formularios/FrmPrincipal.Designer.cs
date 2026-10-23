@@ -121,10 +121,11 @@ namespace FerreStock.Formularios
             //
             // mnuMapaBodega
             //
-            mnuMapaBodega.Enabled = false;
             mnuMapaBodega.Name = "mnuMapaBodega";
+            mnuMapaBodega.ShortcutKeys = Keys.Control | Keys.B;
             mnuMapaBodega.Size = new Size(220, 22);
-            mnuMapaBodega.Text = "Mapa de bodega (semana 3)";
+            mnuMapaBodega.Text = "&Mapa de bodega";
+            mnuMapaBodega.Click += mnuMapaBodega_Click;
             //
             // mnuCalculadora
             //

@@ -12,6 +12,7 @@ namespace FerreStock.Formularios
         private InventarioServicio? inventario;
         private MovimientoServicio? movimientos;
         private PedidoServicio? pedidos;
+        private BodegaServicio? bodega;
 
         public FrmPrincipal()
         {
@@ -25,6 +26,7 @@ namespace FerreStock.Formularios
                 inventario = new InventarioServicio();
                 movimientos = new MovimientoServicio(inventario);
                 pedidos = new PedidoServicio(inventario, movimientos);
+                bodega = new BodegaServicio(inventario);
                 ActualizarBarraEstado();
             }
             catch (Exception ex)
@@ -88,11 +90,11 @@ namespace FerreStock.Formularios
 
         private void AbrirPedidos()
         {
-            if (inventario == null || pedidos == null)
+            if (inventario == null || pedidos == null || bodega == null)
             {
                 return;
             }
-            using (FrmPedidos frm = new FrmPedidos(inventario, pedidos))
+            using (FrmPedidos frm = new FrmPedidos(inventario, pedidos, bodega))
             {
                 frm.ShowDialog(this);
             }
@@ -127,6 +129,18 @@ namespace FerreStock.Formularios
         private void btnPedidos_Click(object sender, EventArgs e)
         {
             AbrirPedidos();
+        }
+
+        private void mnuMapaBodega_Click(object sender, EventArgs e)
+        {
+            if (bodega == null || pedidos == null)
+            {
+                return;
+            }
+            using (FrmMapaBodega frm = new FrmMapaBodega(bodega, pedidos, null))
+            {
+                frm.ShowDialog(this);
+            }
         }
 
         private void mnuComparador_Click(object sender, EventArgs e)

@@ -17,9 +17,15 @@ namespace FerreStock.Servicios
     {
         // Todos los nodos por los que se pasa, en orden (empieza y termina en 0).
         public List<int> Camino { get; set; } = new List<int>();
+
+        // Posición en Camino desde la que empieza el regreso al mostrador (para dibujarlo distinto).
+        public int InicioRegreso { get; set; }
         public List<ParadaRuta> Paradas { get; set; } = new List<ParadaRuta>();
         public double DistanciaM { get; set; }
         public double MinutosEstimados { get; set; }
+
+        // Ubicaciones donde hay que recoger algo (para resaltarlas en el mapa).
+        public List<string> UbicacionesARecoger { get; set; } = new List<string>();
 
         // Productos del pedido que no tienen ubicación y no se pueden incluir en la ruta.
         public List<string> SinUbicacion { get; set; } = new List<string>();
@@ -137,6 +143,10 @@ namespace FerreStock.Servicios
                 }
 
                 cantidadItems++;
+                if (!ruta.UbicacionesARecoger.Contains(ubicacion.Id))
+                {
+                    ruta.UbicacionesARecoger.Add(ubicacion.Id);
+                }
                 string detalle = ubicacion.Id + ": " + item.CodigoProducto + " x" + item.Cantidad;
                 if (detallePorNodo.ContainsKey(ubicacion.NodoGrafo))
                 {
@@ -180,6 +190,7 @@ namespace FerreStock.Servicios
             }
 
             // Paso 3: volver al mostrador a entregar el pedido.
+            ruta.InicioRegreso = ruta.Camino.Count - 1;
             if (actual != NodoMostrador)
             {
                 ResultadoDijkstra regreso = grafo.Dijkstra(actual);

@@ -11,15 +11,17 @@ namespace FerreStock.Formularios
     {
         private readonly InventarioServicio inventario;
         private readonly PedidoServicio pedidos;
+        private readonly BodegaServicio bodega;
 
         // Ítems del pedido que el usuario está armando (todavía no se ha creado).
         private readonly List<ItemPedido> itemsNuevos = new List<ItemPedido>();
 
-        public FrmPedidos(InventarioServicio inventario, PedidoServicio pedidos)
+        public FrmPedidos(InventarioServicio inventario, PedidoServicio pedidos, BodegaServicio bodega)
         {
             InitializeComponent();
             this.inventario = inventario;
             this.pedidos = pedidos;
+            this.bodega = bodega;
         }
 
         private void FrmPedidos_Load(object sender, EventArgs e)
@@ -186,9 +188,17 @@ namespace FerreStock.Formularios
             try
             {
                 Pedido atendido = await pedidos.AtenderSiguienteAsync();
-                // TODO estudiante (semana 3): aquí se abrirá el mapa con la ruta de alistamiento del pedido.
-                MessageBox.Show("Alistar pedido " + atendido.Id + " de " + atendido.Cliente + ":\n" + DescribirItems(atendido),
-                    "Pedido alistado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MostrarPedidos();
+                DialogResult verRuta = MessageBox.Show("Alistar pedido " + atendido.Id + " de " + atendido.Cliente + ":\n" +
+                    DescribirItems(atendido) + "\n\n¿Ver la ruta de alistamiento en el mapa?",
+                    "Pedido alistado", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (verRuta == DialogResult.Yes)
+                {
+                    using (FrmMapaBodega mapa = new FrmMapaBodega(bodega, pedidos, atendido))
+                    {
+                        mapa.ShowDialog(this);
+                    }
+                }
             }
             catch (ArgumentException ex)
             {
