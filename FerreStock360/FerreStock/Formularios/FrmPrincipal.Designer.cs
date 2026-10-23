@@ -143,10 +143,11 @@ namespace FerreStock.Formularios
             //
             // mnuIndicadores
             //
-            mnuIndicadores.Enabled = false;
             mnuIndicadores.Name = "mnuIndicadores";
+            mnuIndicadores.ShortcutKeys = Keys.Control | Keys.I;
             mnuIndicadores.Size = new Size(260, 22);
-            mnuIndicadores.Text = "Indicadores (semana 3)";
+            mnuIndicadores.Text = "&Indicadores";
+            mnuIndicadores.Click += mnuIndicadores_Click;
             //
             // mnuComparador
             //

@@ -13,6 +13,7 @@ namespace FerreStock.Formularios
         private MovimientoServicio? movimientos;
         private PedidoServicio? pedidos;
         private BodegaServicio? bodega;
+        private IndicadorServicio? indicadores;
 
         public FrmPrincipal()
         {
@@ -27,6 +28,7 @@ namespace FerreStock.Formularios
                 movimientos = new MovimientoServicio(inventario);
                 pedidos = new PedidoServicio(inventario, movimientos);
                 bodega = new BodegaServicio(inventario);
+                indicadores = new IndicadorServicio(inventario, movimientos, pedidos, bodega);
                 ActualizarBarraEstado();
             }
             catch (Exception ex)
@@ -150,6 +152,18 @@ namespace FerreStock.Formularios
                 return;
             }
             using (FrmCalculadora frm = new FrmCalculadora(inventario, bodega, pedidos))
+            {
+                frm.ShowDialog(this);
+            }
+        }
+
+        private void mnuIndicadores_Click(object sender, EventArgs e)
+        {
+            if (indicadores == null)
+            {
+                return;
+            }
+            using (FrmIndicadores frm = new FrmIndicadores(indicadores))
             {
                 frm.ShowDialog(this);
             }
