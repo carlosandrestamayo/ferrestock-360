@@ -60,7 +60,13 @@ namespace FerreStock.Formularios
             {
                 return;
             }
-            MessageBox.Show("Módulo en construcción.", "FerreStock 360");
+            // ShowDialog abre la ventana y espera a que se cierre;
+            // después se actualiza la barra de estado con los cambios hechos.
+            using (FrmProductos frm = new FrmProductos(inventario))
+            {
+                frm.ShowDialog(this);
+            }
+            ActualizarBarraEstado();
         }
 
         private void mnuProductos_Click(object sender, EventArgs e)
