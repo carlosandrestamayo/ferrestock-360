@@ -10,6 +10,7 @@ namespace FerreStock.Formularios
     public partial class FrmPrincipal : Form
     {
         private InventarioServicio? inventario;
+        private MovimientoServicio? movimientos;
 
         public FrmPrincipal()
         {
@@ -21,6 +22,7 @@ namespace FerreStock.Formularios
             try
             {
                 inventario = new InventarioServicio();
+                movimientos = new MovimientoServicio(inventario);
                 ActualizarBarraEstado();
             }
             catch (Exception ex)
@@ -69,6 +71,19 @@ namespace FerreStock.Formularios
             ActualizarBarraEstado();
         }
 
+        private void AbrirMovimientos()
+        {
+            if (inventario == null || movimientos == null)
+            {
+                return;
+            }
+            using (FrmMovimientos frm = new FrmMovimientos(inventario, movimientos))
+            {
+                frm.ShowDialog(this);
+            }
+            ActualizarBarraEstado();
+        }
+
         private void mnuProductos_Click(object sender, EventArgs e)
         {
             AbrirProductos();
@@ -77,6 +92,16 @@ namespace FerreStock.Formularios
         private void btnProductos_Click(object sender, EventArgs e)
         {
             AbrirProductos();
+        }
+
+        private void mnuMovimientos_Click(object sender, EventArgs e)
+        {
+            AbrirMovimientos();
+        }
+
+        private void btnMovimientos_Click(object sender, EventArgs e)
+        {
+            AbrirMovimientos();
         }
 
         private void mnuSalir_Click(object sender, EventArgs e)

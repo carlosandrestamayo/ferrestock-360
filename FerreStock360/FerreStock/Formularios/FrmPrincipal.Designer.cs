@@ -48,6 +48,7 @@ namespace FerreStock.Formularios
             lblTitulo = new Label();
             lblSubtitulo = new Label();
             btnProductos = new Button();
+            btnMovimientos = new Button();
             menuPrincipal.SuspendLayout();
             barraEstado.SuspendLayout();
             SuspendLayout();
@@ -96,10 +97,11 @@ namespace FerreStock.Formularios
             //
             // mnuMovimientos
             //
-            mnuMovimientos.Enabled = false;
             mnuMovimientos.Name = "mnuMovimientos";
+            mnuMovimientos.ShortcutKeys = Keys.Control | Keys.M;
             mnuMovimientos.Size = new Size(180, 22);
-            mnuMovimientos.Text = "Movimientos (semana 2)";
+            mnuMovimientos.Text = "&Movimientos";
+            mnuMovimientos.Click += mnuMovimientos_Click;
             //
             // mnuPedidos
             //
@@ -199,19 +201,32 @@ namespace FerreStock.Formularios
             //
             btnProductos.Anchor = AnchorStyles.Top;
             btnProductos.Font = new Font("Segoe UI", 12F);
-            btnProductos.Location = new Point(300, 210);
+            btnProductos.Location = new Point(110, 210);
             btnProductos.Name = "btnProductos";
-            btnProductos.Size = new Size(200, 50);
+            btnProductos.Size = new Size(180, 50);
             btnProductos.TabIndex = 4;
             btnProductos.Text = "Productos";
             btnProductos.UseVisualStyleBackColor = true;
             btnProductos.Click += btnProductos_Click;
+            // 
+            // btnMovimientos
+            // 
+            btnMovimientos.Anchor = AnchorStyles.Top;
+            btnMovimientos.Font = new Font("Segoe UI", 12F);
+            btnMovimientos.Location = new Point(310, 210);
+            btnMovimientos.Name = "btnMovimientos";
+            btnMovimientos.Size = new Size(180, 50);
+            btnMovimientos.TabIndex = 5;
+            btnMovimientos.Text = "Movimientos";
+            btnMovimientos.UseVisualStyleBackColor = true;
+            btnMovimientos.Click += btnMovimientos_Click;
             //
             // FrmPrincipal
             //
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnMovimientos);
             Controls.Add(btnProductos);
             Controls.Add(lblSubtitulo);
             Controls.Add(lblTitulo);
@@ -253,5 +268,6 @@ namespace FerreStock.Formularios
         private Label lblTitulo;
         private Label lblSubtitulo;
         private Button btnProductos;
+        private Button btnMovimientos;
     }
 }

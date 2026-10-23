@@ -5,32 +5,11 @@ using FerreStock.Servicios;
 namespace FerreStock.Pruebas
 {
     /// <summary>
-    /// Las pruebas del servicio cambian RutasDatos.Carpeta a una carpeta temporal.
-    /// Como esa propiedad es compartida (static), todas las clases de prueba que la usen
-    /// deben ir en la colección "RutasDatos" para que xUnit no las corra al mismo tiempo.
+    /// Cada prueba empieza con los datos iniciales en una carpeta temporal (ver CarpetaDatosTemporal).
     /// </summary>
     [Collection("RutasDatos")]
-    public class InventarioServicioPruebas : IDisposable
+    public class InventarioServicioPruebas : CarpetaDatosTemporal
     {
-        private readonly string carpetaOriginal;
-        private readonly string carpetaTemporal;
-
-        public InventarioServicioPruebas()
-        {
-            carpetaOriginal = RutasDatos.Carpeta;
-            carpetaTemporal = Path.Combine(Path.GetTempPath(), "FerreStockPruebas_" + Guid.NewGuid().ToString("N"));
-            RutasDatos.Carpeta = carpetaTemporal;
-        }
-
-        public void Dispose()
-        {
-            RutasDatos.Carpeta = carpetaOriginal;
-            if (Directory.Exists(carpetaTemporal))
-            {
-                Directory.Delete(carpetaTemporal, true);
-            }
-        }
-
         private static Producto CrearProductoValido(string codigo)
         {
             return new Producto

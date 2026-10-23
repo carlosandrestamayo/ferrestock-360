@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace FerreStock.Modelos
 {
     /// <summary>
@@ -35,5 +37,13 @@ namespace FerreStock.Modelos
         // Unidades vendidas en el último mes. Sirve para la rotación,
         // la clasificación ABC y el costo de ubicación.
         public int VentasMes { get; set; }
+
+        // Texto para mostrar en listas desplegables, por ejemplo "CON-001 - Cemento gris 50 kg".
+        // [JsonIgnore] evita que se guarde en el archivo, porque se calcula con otros datos.
+        [JsonIgnore]
+        public string Descripcion
+        {
+            get { return Codigo + " - " + Nombre; }
+        }
     }
 }
