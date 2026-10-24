@@ -8,11 +8,17 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <!-- Si el equipo no tiene .NET 8 instalado, la aplicación corre en la versión más nueva disponible. -->
     <RollForward>Major</RollForward>
+    <!-- Ícono del .exe (el que se ve en el explorador de archivos y en la barra de tareas). -->
+    <ApplicationIcon>Imagenes\icono.ico</ApplicationIcon>
   </PropertyGroup>
 
   <!-- Los archivos JSON se copian junto al .exe; solo se reemplazan si el del proyecto es más nuevo. -->
   <ItemGroup>
     <None Update="data\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <!-- Imágenes de la pantalla principal; se pueden reemplazar sin recompilar. -->
+    <None Update="Imagenes\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

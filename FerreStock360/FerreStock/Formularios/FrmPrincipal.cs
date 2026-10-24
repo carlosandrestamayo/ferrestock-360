@@ -18,6 +18,35 @@ namespace FerreStock.Formularios
         public FrmPrincipal()
         {
             InitializeComponent();
+            CargarImagenes();
+        }
+
+        /// <summary>
+        /// Pone la imagen de portada en el encabezado y el ícono de la ventana.
+        /// Las imágenes están en la carpeta Imagenes junto al .exe; si alguna falta,
+        /// la ventana se muestra igual con el fondo de color, por eso el error no se le muestra al usuario.
+        /// </summary>
+        private void CargarImagenes()
+        {
+            string carpeta = Path.Combine(AppContext.BaseDirectory, "Imagenes");
+            try
+            {
+                string rutaPortada = Path.Combine(carpeta, "portada.png");
+                if (File.Exists(rutaPortada))
+                {
+                    pnlEncabezado.BackgroundImage = Image.FromFile(rutaPortada);
+                }
+
+                string rutaIcono = Path.Combine(carpeta, "icono.ico");
+                if (File.Exists(rutaIcono))
+                {
+                    Icon = new Icon(rutaIcono);
+                }
+            }
+            catch (Exception)
+            {
+                // Imagen dañada o con formato no válido: se deja el diseño sin imagen.
+            }
         }
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
@@ -200,6 +229,8 @@ namespace FerreStock.Formularios
         }
 
         // TODO estudiante: cambiar los textos, colores o el ícono de esta ventana
-        // para que coincidan con la ferretería visitada.
+        // para que coincidan con la ferretería visitada. Para cambiar la portada basta con
+        // reemplazar Imagenes/portada.png por otra imagen de 1200 x 300 píxeles
+        // (dejar la parte izquierda oscura y despejada, porque ahí va el título).
     }
 }
