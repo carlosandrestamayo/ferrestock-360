@@ -36,7 +36,7 @@ explicar qué pasa "por debajo" cuando se hace clic en un botón.
 | 1 | Productos (`FrmProductos`) | [01-FrmProductos.md](01-FrmProductos.md) | ✅ Lista |
 | 2 | Movimientos (`FrmMovimientos`) | [02-FrmMovimientos.md](02-FrmMovimientos.md) | ✅ Lista |
 | 3 | Pedidos (`FrmPedidos`) | [03-FrmPedidos.md](03-FrmPedidos.md) | ✅ Lista |
-| 4 | Mapa de bodega (`FrmMapaBodega`) | — | Pendiente |
+| 4 | Mapa de bodega (`FrmMapaBodega`) | [04-FrmMapaBodega.md](04-FrmMapaBodega.md) | ✅ Lista |
 | 5 | Calculadora (`FrmCalculadora`) | — | Pendiente |
 | 6 | Indicadores (`FrmIndicadores`) | — | Pendiente |
 | 7 | Comparador de algoritmos (`FrmComparadorAlgoritmos`) | — | Pendiente |
